@@ -9,8 +9,8 @@ GO
 SELECT maker, model 
 FROM product
 WHERE model IN (SELECT model 
-				FROM pc
-				WHERE speed > 500)
+		FROM pc
+		WHERE speed > 500)
 
 -- Задача №2
 -- Напишете заявка, която извежда код, модел и цена на принтерите с 
@@ -34,17 +34,17 @@ WHERE speed < ALL (SELECT speed FROM pc)
 
 SELECT TOP 1 * 
 FROM (SELECT model, price
-	  FROM pc
-	  
-	  UNION
-	  
-	  SELECT model, price
-	  FROM laptop
-	  
-	  UNION 
-	  
-	  SELECT model, price
-	  FROM printer) AS all_union
+      FROM pc
+  
+      UNION
+  
+      SELECT model, price
+      FROM laptop
+  
+      UNION 
+  
+      SELECT model, price
+      FROM printer) AS all_union
 ORDER BY price DESC
 
 -- Задача №5
@@ -54,17 +54,21 @@ ORDER BY price DESC
 SELECT maker
 FROM product
 WHERE model IN (SELECT model
-				FROM printer
-				WHERE color = 'y'
-					  AND
-					  price <= ALL (SELECT price
-								FROM printer
-								WHERE color = 'y'))
+		FROM printer
+		WHERE color = 'y'
+		      AND
+		      price <= ALL (SELECT price
+				    FROM printer
+				    WHERE color = 'y'))
 
 -- Задача №6
 -- Напишете заявка, която извежда производителите на тези персонални
--- компютри с най-малко RAM памет, които имат най-бързи процесори.SELECT makerFROM productWHERE model IN (SELECT model
-				FROM pc AS opc  
-				WHERE ram <= ALL (SELECT ram FROM pc)  
-					  AND  
-					  speed >= ALL (SELECT speed FROM pc WHERE ram = opc.ram));
+-- компютри с най-малко RAM памет, които имат най-бързи процесори.
+
+SELECT maker
+FROM product
+WHERE model IN (SELECT model
+		FROM pc AS opc  
+		WHERE ram <= ALL (SELECT ram FROM pc)  
+	              AND  
+		      speed >= ALL (SELECT speed FROM pc WHERE ram = opc.ram));
