@@ -41,14 +41,14 @@ HAVING maker = 'A'
 
 SELECT AVG(price)
 FROM (SELECT maker, price
-	  FROM product
-	  JOIN pc ON pc.model = product.model
+      FROM product
+      JOIN pc ON pc.model = product.model
 	  
-	  UNION ALL
+      UNION ALL
 	  
-	  SELECT maker, price 
-	  FROM product
-	  JOIN laptop ON laptop.model = product.model) AS all_prices
+      SELECT maker, price 
+      FROM product
+      JOIN laptop ON laptop.model = product.model) AS all_prices
 GROUP BY maker
 HAVING maker = 'B'
 
