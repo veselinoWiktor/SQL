@@ -70,8 +70,40 @@ GROUP BY speed
 
 -- Задача №7
 -- Напишете заявка, която извежда производителите, които са произвели поне 3
--- различни персонални компютъра (с различен код).SELECT maker, COUNT(code) AS #PC FROM productJOIN pc ON pc.model = product.modelGROUP BY makerHAVING COUNT(code) >= 3-- Задача №8-- Напишете заявка, която извежда производителите с най-висока цена на
--- персонален компютър.SELECT maker, MAX(price) AS max_price FROM productJOIN pc ON pc.model = product.modelGROUP BY makerHAVING MAX(price) >= ALL(SELECT price FROM pc)-- Задача №9-- Напишете заявка, която извежда средната цена на персоналните компютри за
--- всяка честота по-голяма от 800.SELECT speed, AVG(price) AS avg_price FROM pcGROUP BY speedHAVING speed > 800-- Задача №10-- Напишете заявка, която извежда средния размер на диска на тези персонални
+-- различни персонални компютъра (с различен код).
+	 
+SELECT maker, COUNT(code) AS #PC 
+FROM product
+JOIN pc ON pc.model = product.model
+GROUP BY maker
+HAVING COUNT(code) >= 3
+
+-- Задача №8
+-- Напишете заявка, която извежда производителите с най-висока цена на
+-- персонален компютър.
+	 
+SELECT maker, MAX(price) AS max_price 
+FROM product
+JOIN pc ON pc.model = product.model
+GROUP BY maker
+HAVING MAX(price) >= ALL(SELECT price FROM pc)
+
+-- Задача №9
+-- Напишете заявка, която извежда средната цена на персоналните компютри за
+-- всяка честота по-голяма от 800.
+	 
+SELECT speed, AVG(price) AS avg_price 
+FROM pc
+GROUP BY speed
+HAVING speed > 800
+
+-- Задача №10
+-- Напишете заявка, която извежда средния размер на диска на тези персонални
 -- компютри, произведени от производители, които произвеждат и принтери.
--- Резултатът да се изведе за всеки отделен производител.SELECT maker, CONVERT(DECIMAL(19, 2), AVG(hd)) AS avg_hdd FROM productLEFT JOIN pc ON pc.model = product.modelLEFT JOIN printer ON printer.model = product.modelGROUP BY makerHAVING COUNT(printer.code) > 0 AND COUNT(pc.code) > 0
+-- Резултатът да се изведе за всеки отделен производител.
+
+SELECT maker, CONVERT(DECIMAL(19, 2), AVG(hd)) AS avg_hdd FROM product
+LEFT JOIN pc ON pc.model = product.model
+LEFT JOIN printer ON printer.model = product.model
+GROUP BY maker
+HAVING COUNT(printer.code) > 0 AND COUNT(pc.code) > 0
