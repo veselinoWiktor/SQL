@@ -9,7 +9,7 @@ GO
 SELECT DISTINCT COUNTRY 
 FROM CLASSES
 WHERE NUMGUNS >= ALL (SELECT NUMGUNS
-					  FROM CLASSES)
+		      FROM CLASSES)
 
 -- Задача №2
 -- Напишете заявка, която извежда класовете, за които поне един от
@@ -18,8 +18,8 @@ WHERE NUMGUNS >= ALL (SELECT NUMGUNS
 SELECT DISTINCT CLASS
 FROM SHIPS
 WHERE NAME IN (SELECT SHIP 
-			   FROM OUTCOMES
-			   WHERE RESULT = 'sunk')
+	       FROM OUTCOMES
+	       WHERE RESULT = 'sunk')
 
 -- Задача №3
 -- Напишете заявка, която извежда името и класа на корабите с 16 инчови
@@ -28,8 +28,8 @@ WHERE NAME IN (SELECT SHIP
 SELECT NAME, CLASS 
 FROM SHIPS
 WHERE CLASS IN (SELECT CLASS 
-				FROM CLASSES
-				WHERE BORE = 16)
+		FROM CLASSES
+		WHERE BORE = 16)
 
 -- Задача №4
 -- Напишете заявка, която извежда имената на битките, в които са
@@ -38,8 +38,8 @@ WHERE CLASS IN (SELECT CLASS
 SELECT BATTLE 
 FROM OUTCOMES
 WHERE SHIP IN (SELECT NAME 
-			   FROM SHIPS
-			   WHERE CLASS = 'Kongo')
+	       FROM SHIPS
+	       WHERE CLASS = 'Kongo')
 
 -- Задача №5
 -- Напишете заявка, която извежда класа и името на корабите, чиито брой
@@ -49,7 +49,7 @@ WHERE SHIP IN (SELECT NAME
 SELECT * 
 FROM SHIPS
 WHERE CLASS IN (SELECT CLASS
-				FROM CLASSES AS C
-				WHERE NUMGUNS >= ALL (SELECT NUMGUNS 
-									  FROM CLASSES 
-									  WHERE C.BORE = BORE))
+		FROM CLASSES AS C
+		WHERE NUMGUNS >= ALL (SELECT NUMGUNS 
+				      FROM CLASSES 
+				      WHERE C.BORE = BORE))
