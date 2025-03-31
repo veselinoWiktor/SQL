@@ -9,10 +9,10 @@ GO
 SELECT NAME 
 FROM MOVIEEXEC
 WHERE NETWORTH > 10000000
-	  AND
+      AND
       NAME IN (SELECT NAME 
-			   FROM MOVIESTAR
-			   WHERE Gender = 'F')
+	       FROM MOVIESTAR
+	       WHERE Gender = 'F')
 
 -- Задача №2
 -- Напишете заявка, която извежда имената на тези актьори (мъже и жени),
@@ -29,8 +29,8 @@ WHERE NAME NOT IN (SELECT NAME FROM MOVIEEXEC)
 SELECT TITLE 
 FROM MOVIE
 WHERE LENGTH > (SELECT LENGTH
-			    FROM MOVIE
-				WHERE TITLE = 'Star Wars')
+		FROM MOVIE
+		WHERE TITLE = 'Star Wars')
 
 -- Задача №4
 -- Напишете заявка, която извежда имената на продуцентите и имената на
@@ -42,10 +42,10 @@ WHERE LENGTH > (SELECT LENGTH
 SELECT TITLE, (SELECT NAME FROM MOVIEEXEC WHERE PRODUCERC# = CERT#) AS NAME
 FROM MOVIE
 WHERE PRODUCERC# IN (SELECT CERT#
-					 FROM MOVIEEXEC
-					 WHERE NETWORTH > (SELECT NETWORTH 
-									   FROM MOVIEEXEC 
-									   WHERE NAME = 'Merv Griffin'))
+		     FROM MOVIEEXEC
+		     WHERE NETWORTH > (SELECT NETWORTH 
+				       FROM MOVIEEXEC 
+				       WHERE NAME = 'Merv Griffin'))
 
 -- Начин №2: 
 
@@ -53,7 +53,5 @@ SELECT TITLE, NAME
 FROM MOVIE
 JOIN MOVIEEXEC ON PRODUCERC# = CERT#
 WHERE NETWORTH > (SELECT NETWORTH
-				  FROM MOVIEEXEC
-				  WHERE NAME = 'Merv Griffin')
-
-
+		  FROM MOVIEEXEC
+		  WHERE NAME = 'Merv Griffin')
